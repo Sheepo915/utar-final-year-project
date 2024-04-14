@@ -48,3 +48,5 @@
 2024-04-14 17:20:08,991 - mqtt_log - INFO - Connected to MQTT broker
 2024-04-14 17:22:43,569 - mqtt_log - INFO - Initializing connection to MQTT broker
 2024-04-14 17:22:43,674 - mqtt_log - INFO - Connected to MQTT broker
+2024-04-14 18:32:13,259 - mqtt_log - INFO - Initializing connection to MQTT broker
+2024-04-14 18:32:13,320 - mqtt_log - INFO - Connected to MQTT broker
