@@ -1,10 +1,10 @@
 import adafruit_mcp3xxx.mcp3008 as MCP
-import adafruit_mcp3xxx.analog_in as AnalogIn
 import busio
 import board
 import digitalio
 import time
 
+from adafruit_mcp3xxx.analog_in import AnalogIn
 from lib.config import config
 from lib.utils import Logger
 from lib.controller import MQTT
@@ -22,13 +22,13 @@ class MoistureSensor:
         self.__spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
         self.__cs = digitalio.DigitalInOut(digital_in_out)
         self.__mcp3008 = MCP.MCP3008(self.__spi, self.__cs)
-        self.__sensor= AnalogIn(mcp=self.__mcp3008, positive=mcp_channel)
+        self.__sensor = AnalogIn(self.__mcp3008, mcp_channel)
 
         self.__mqtt_client = mqtt_client
         self.__logger = logger
         self.__print_to_console = print_to_console
 
-    def __voltage_to_moisture(voltage) -> float:
+    def __voltage_to_moisture(self, voltage) -> float:
         # Dry condition
         # Based on testing, 2.5V seems to be the highest achieved in the testing environment
         MAX_OPERATING_VOLTAGE = 2.5
@@ -53,16 +53,16 @@ class MoistureSensor:
 
                 moisture_content = self.__voltage_to_moisture(voltage)
 
+                self.__mqtt_client.publish_mqtt(
+                    config.MQTT_TOPIC_MOISTURE, moisture_content
+                )
+                
                 if not self.__print_to_console:
                     print(
                         "Moisture Content: {0:3f}; Voltage: {1:3f}V".format(
                             moisture_content, voltage
                         )
                     )
-                    
-                self.__mqtt_client.publish_mqtt(
-                    config.MQTT_TOPIC_MOISTURE, moisture_content
-                )
 
                 time.sleep(1)
 

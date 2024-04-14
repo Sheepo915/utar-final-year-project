@@ -35,7 +35,7 @@ class SensorManager:
         self.__mqtt_client.start()
 
         temp_humidity_sensor_thread = threading.Thread(target=self.temp_humidity_sensor.read_sensor)
-        moisture_sensor_thread = threading.Thread(target=self.temp_humidity_sensor.read_sensor)
+        moisture_sensor_thread = threading.Thread(target=self.moisture_sensor.read_sensor)
 
         temp_humidity_sensor_thread.start()
         moisture_sensor_thread.start()

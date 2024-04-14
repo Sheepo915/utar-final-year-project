@@ -10,6 +10,7 @@ def main():
     controller = Controller(mqtt_host=config.MQTT_BROKER_ADDRESS, mqtt_port=config.MQTT_BROKER_PORT)
 
     sensor_manager.run()
+    controller.listen((config.MQTT_TOPIC_MOISTURE, config.MQTT_TOPIC_TEMPERATURE, config.MQTT_TOPIC_HUMIDITY))
     
 
 if __name__ == "__main__":

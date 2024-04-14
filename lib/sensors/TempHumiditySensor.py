@@ -26,7 +26,7 @@ class TempHumiditySensor:
     def read_sensor(self):
         while True:
             try:
-                humidity, temperature
+                # humidity, temperature
 
                 if self.__use_legacy is not True:
                     temperature = self.dht11.temperature
@@ -36,17 +36,17 @@ class TempHumiditySensor:
                         self.dht11, 4, delay_seconds=1
                     )
 
+                self.__mqtt_client.publish_mqtt(
+                    config.MQTT_TOPIC_TEMPERATURE, temperature
+                )
+                self.__mqtt_client.publish_mqtt(config.MQTT_TOPIC_HUMIDITY, humidity)
+
                 if not self.__print_to_console:
                     print(
                         "Temperature: {0:1f}; Humidity: {1:1f}".format(
                             temperature, humidity
                         )
                     )
-
-                self.__mqtt_client.publish_mqtt(
-                    config.MQTT_TOPIC_TEMPERATURE, temperature
-                )
-                self.__mqtt_client.publish_mqtt(config.MQTT_TOPIC_HUMIDITY, humidity)
 
             except RuntimeError as error:
                 self.__logger.error(error.args[0])
