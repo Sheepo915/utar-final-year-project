@@ -1,0 +1,5 @@
+MQTT_BROKER_ADDRESS = "192.168.0.102"
+MQTT_BROKER_PORT = 1883
+MQTT_TOPIC_TEMPERATURE = "sensors/temperature"
+MQTT_TOPIC_HUMIDITY = "sensors/humidity"
+MQTT_TOPIC_MOISTURE = "sensors/moisture"
