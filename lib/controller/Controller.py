@@ -45,7 +45,7 @@ class Controller:
             self.__write_api.write(bucket=self.__bucket, org=self.__org, record=record)
 
     def callback_wrapper(self, topic: str):
-        subscribe.callback(self.__on_message, topic, hostname=self.host, port=self.port)
+        subscribe.callback(callback=self.__on_message, topics=topic, hostname=self.host, port=self.port)
 
     def listen(self, topics: tuple[str]):
         topic_args = [(topic,) for topic in topics]
