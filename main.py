@@ -7,7 +7,7 @@ def main():
     logger = setup_logger("sensor_log", "./logs", "sensor.log")
 
     sensor_manager = SensorManager(logger=logger, print_to_console=True, use_legacy_dht=True)
-    controller = Controller(mqtt_host=config.MQTT_BROKER_ADDRESS, mqtt_port=int(config.MQTT_BROKER_PORT))
+    controller = Controller(mqtt_host=config.MQTT_BROKER_ADDRESS, mqtt_port=config.MQTT_BROKER_PORT)
 
     sensor_manager.run()
     controller.listen((config.MQTT_TOPIC_MOISTURE, config.MQTT_TOPIC_TEMPERATURE, config.MQTT_TOPIC_HUMIDITY))
