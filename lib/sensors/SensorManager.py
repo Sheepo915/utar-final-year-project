@@ -16,7 +16,7 @@ class SensorManager:
         print_to_console: bool = False,
         use_legacy_dht: bool = False,
     ):
-        self.__mqtt_client = MQTT(config.MQTT_BROKER_ADDRESS, config.MQTT_BROKER_PORT)
+        self.__mqtt_client = MQTT(config.MQTT_BROKER_ADDRESS, int(config.MQTT_BROKER_PORT))
         self.moisture_sensor = MoistureSensor(
             digital_in_out=board.D5,
             mcp_channel=MCP.P0,
